@@ -1,3 +1,3 @@
 # kusokotoBOT
 
-tokenだけ変えて使ってね
+discordbot/config.iniの設定を変えて使ってね
