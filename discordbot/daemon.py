@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# coding: utf-8
 
 import traceback
 import discord
@@ -7,11 +8,15 @@ import random
 import math
 import time
 from mutagen.mp3 import MP3
-
+import configparser
 
 def main():
 
-    token = 'token'
+    #config読み込み
+    config_ini = configparser.ConfigParser()
+    config_ini.read('config.ini', encoding='utf-8')
+
+    token = config_ini['DEFAULT']['TOKEN']
     bot = commands.Bot(command_prefix='!501 ')
 
     @bot.event
@@ -41,7 +46,7 @@ def main():
         return await ctx.guild.voice_client.disconnect()  # VCから切断
 
     async def listen(ctx):
-        ctx.guild.voice_client.play(discord.FFmpegPCMAudio("filepath"))
+        ctx.guild.voice_client.play(discord.FFmpegPCMAudio(config_ini['DEFAULT']['FILEPATH']))
         time.sleep(5)
 
     @bot.command()
