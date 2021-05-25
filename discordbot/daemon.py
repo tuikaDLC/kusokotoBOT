@@ -5,11 +5,13 @@ import discord
 from discord.ext import commands
 import random
 import math
+import time
+from mutagen.mp3 import MP3
 
 
 def main():
 
-    token = 'tokenhere'
+    token = 'token'
     bot = commands.Bot(command_prefix='!501 ')
 
     @bot.event
@@ -27,6 +29,27 @@ def main():
     @bot.command()
     async def korosu(ctx):
         return await ctx.send('オメーが死ね')
+
+    @bot.command()
+    async def sound(ctx):
+        state = ctx.author.voice  # コマンド実行者のVCステータスを取得
+        if state is None:
+            return await ctx.send('```\nVCに参加してください\n```')
+
+        await ctx.author.voice.channel.connect()  # VCに参加
+        await listen(ctx)
+        return await ctx.guild.voice_client.disconnect()  # VCから切断
+
+    async def listen(ctx):
+        ctx.guild.voice_client.play(discord.FFmpegPCMAudio("/home/ubuntu/bot/bgm.mp3"))
+        time.sleep(5)
+
+    @bot.command()
+    async def leave(ctx):
+
+        await ctx.guild.voice_client.disconnect()  # VCから切断
+
+        return
 
     @bot.command()
     async def member(ctx):
