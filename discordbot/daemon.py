@@ -41,7 +41,7 @@ def main():
         return await ctx.guild.voice_client.disconnect()  # VCから切断
 
     async def listen(ctx):
-        ctx.guild.voice_client.play(discord.FFmpegPCMAudio("/home/ubuntu/bot/bgm.mp3"))
+        ctx.guild.voice_client.play(discord.FFmpegPCMAudio("filepath"))
         time.sleep(5)
 
     @bot.command()
